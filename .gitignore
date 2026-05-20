@@ -1,0 +1,33 @@
+# Cache e modelos locais
+cache_emocoes.json
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Saídas geradas
+saida_analise_chatgpt.csv
+estatisticas_perfis.csv
+palavras_por_perfil.txt
+resumo_perfis_chatgpt.txt
+comentarios_excluidos.csv
+resumo_perfis.txt
+saida_analise.csv
+
+# Dados (opcional: remova a linha csv/ se quiser versionar exemplos)
+csv/*.csv
+
+# IDE e sistema
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Segredos
+.env
+*.env
