@@ -1,4 +1,4 @@
-# Clusterização de dados do Reddit
+# Análise de dados do Reddit
 
 Complemento para projetos de scraping do Reddit (ex.: [PRAW](https://praw.readthedocs.io/)). Este repositório **não faz scraping** — ele recebe CSVs com comentários, classifica cada um em um **perfil emocional** e gera relatórios prontos para análise ou uso com LLMs (ChatGPT, etc.).
 
@@ -6,7 +6,7 @@ Complemento para projetos de scraping do Reddit (ex.: [PRAW](https://praw.readth
 
 1. **Carrega** todos os `.csv` de uma pasta que tenham a coluna `Comment`
 2. **Classifica** cada comentário em um dos 4 perfis emocionais (modelo zero-shot BART)
-3. **Agrupa** os resultados por perfil (a clusterização oficial é emocional, não lexical)
+3. **Agrupa** os resultados por perfil (a análise principal é emocional, não lexical)
 4. **Extrai** termos frequentes por perfil (TF-IDF)
 5. **Gera** CSV, estatísticas, resumo em texto e arquivo de palavras-chave
 
@@ -60,8 +60,8 @@ O modelo usado é [`facebook/bart-large-mnli`](https://huggingface.co/facebook/b
 ## Instalação
 
 ```bash
-git clone https://github.com/SEU_USUARIO/Clusterizacao-de-dados-do-reddit-scraping.git
-cd Clusterizacao-de-dados-do-reddit-scraping
+git clone https://github.com/SEU_USUARIO/analiseesegmentacao.git
+cd analiseesegmentacao.git
 
 pip install -r requirements.txt
 ```
@@ -183,7 +183,7 @@ Os dois repositórios são independentes; basta manter o mesmo formato de coluna
 ## Detalhes técnicos
 
 - **Classificação:** inferência em batch, GPU automática se CUDA disponível, truncamento de textos longos (2000 caracteres)
-- **Agrupamento:** por `perfil_emocional` (não há KMeans separado — evita confundir cluster lexical com perfil emocional)
+- **Agrupamento:** por `perfil_emocional` (não há KMeans separado — evita confundir agrupamento lexical com perfil emocional)
 - **TF-IDF / palavras por perfil:** stop words via [NLTK](https://www.nltk.org/) (inglês + português por padrão com `--idioma both`), mais termos de URL (`http`, `www`, etc.)
 - **Filtro de ruído:** comentários com menos de 3 palavras ou apenas links vão para `comentarios_excluidos.csv` e não passam pela classificação emocional
 - **Visualização:** redução dimensional com `TruncatedSVD` em matriz esparsa (eficiente em memória)
@@ -216,10 +216,6 @@ Assim você evita subir cache grande, dados pessoais dos CSVs e saídas geradas.
 | `ModuleNotFoundError: torch` | Dependências faltando | `pip install -r requirements.txt` |
 | Muito lento na primeira vez | Modelo grande em CPU | Use Colab com GPU ou reexecute com cache |
 
-## Licença
-
-Defina a licença desejada (ex.: MIT) antes de publicar, se ainda não houver um arquivo `LICENSE`.
-
 ## Autor
 
-Projeto de análise e clusterização emocional de comentários do Reddit — complemento ao scraping com PRAW.
+Projeto de análise emocional de comentários do Reddit — complemento ao scraping com PRAW.
